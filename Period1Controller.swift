@@ -37,7 +37,7 @@ class Period1Controller: UIViewController, UITextFieldDelegate {
         let otherEntity = entitys.last
         if otherEntity != nil {
             let stringEntity = otherEntity!.valueForKey("period1Core")as? String
-            presentName.text = (" " + stringEntity!)
+            presentName.text = ("  " + stringEntity!)
         }
        
     }
@@ -71,16 +71,16 @@ class Period1Controller: UIViewController, UITextFieldDelegate {
     @IBAction func start(sender: UIButton) {
         let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         let request = NSFetchRequest(entityName: "Entity")
-        var results = [AnyObject]()
+        //var results = [AnyObject]()
         do {
-            results = try context.executeFetchRequest(request)
-            //entitys = results as! [NSManagedObject]
+            let results = try context.executeFetchRequest(request)
+            entitys = results as! [NSManagedObject]
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
-        let randomIndex = Int(arc4random_uniform(UInt32(results.count)))
+        let randomIndex = Int(arc4random_uniform(UInt32(entitys.count)))
         driverSelection.text! = nameList[randomIndex]
-        print(results)
+        print(randomIndex)
 
     }
     
